@@ -1,0 +1,25 @@
+
+#include env
+ifneq ("$(wildcard .env)","")
+    include .env
+endif
+
+
+
+# compose files
+COMPOSE_FILES= \
+            -f ./redis/docker-compose.yaml \
+            -f ./zoo/docker-compose_3_4_9.yaml \
+
+
+
+# define target
+.PHONY: up down
+
+#start
+up:
+	docker-compose $(COMPOSE_FILES) -p $(PROJECT_NAME) up -d
+
+# stop and down
+down:
+	docker-compose $(COMPOSE_FILES) -p $(PROJECT_NAME) down --volumes --remove-orphans

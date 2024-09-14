@@ -1,0 +1,11 @@
+services:
+  redis:
+    image: redis:latest  # 使用最新版本的 Redis 镜像
+    hostname: redis
+    container_name: redis  # 容器名称
+    ports:
+      - "6379:6379"
+    volumes:
+      - ${PROJECT_PATH}/redis/data:/data
+      - ${PROJECT_PATH}/redis/redis.conf:/etc/redis/redis.conf
+    command: redis-server /etc/redis/redis.conf
