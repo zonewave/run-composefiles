@@ -11,15 +11,16 @@ COMPOSE_FILES= \
             -f ./redis/docker-compose.yaml \
             -f ./zoo/docker-compose_3_4_9.yaml \
 
-
+# compose common args
+DOCKER_COMPOSE_OPTIONS=--env-file .env $(COMPOSE_FILES) -p $(PROJECT_NAME)
 
 # define target
 .PHONY: up down
 
 #start
 up:
-	docker-compose $(COMPOSE_FILES) -p $(PROJECT_NAME) up -d
+	docker-compose $(DOCKER_COMPOSE_OPTIONS) up -d
 
 # stop and down
 down:
-	docker-compose $(COMPOSE_FILES) -p $(PROJECT_NAME) down --volumes --remove-orphans
+	docker-compose $(DOCKER_COMPOSE_OPTIONS) down --volumes --remove-orphans
